@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shape Maker</title>
+</head>
+<body>
+
+<script>
+var cprice = 1;
+var money = 1;
+var gain = 0;
+setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 1000);
+var circle;
+function update() {
+clearInterval(circle);
+circle = setInterval(function(){money += gain; update();}, 1000);
+}
+</script>
+
+<h1>Shape Maker</h1>
+<h2>$1</h2>
+<button onclick="if(money >= cprice) {
+gain += 1;
+money -= cprice;
+update();
+cprice += gain * 3;
+document.querySelector('span').innerText = parseInt(document.querySelector('span').innerText) + 1;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + cprice;
+}">Buy A Circle Draw-er</button>
+<p>You own: <span>0</span></p>
+
+<p>Price: 1</p>
+<button onclick="if(money >= cprice) {
+gain += 1;
+money -= cprice;
+update();
+cprice += gain * 3;
+document.querySelector('span').innerText = parseInt(document.querySelector('span').innerText) + 1;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + cprice;
+}">Buy A Circle Draw-er</button>
+<p>You own: <span>0</span></p>
+<p>Price: 1</p>
+
+</body>
+</html>
