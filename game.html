@@ -32,13 +32,13 @@ document.querySelectorAll('p')[1].innerText = 'Price: ' + cprice;
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
 
-<button onclick="if(money >= cprice) {
-gain += 1;
-money -= cprice;
+<button onclick="if(money >= hprice) {
+hgain += 1;
+money -= hprice;
 update();
-cprice += gain * 3;
-document.querySelector('span').innerText = parseInt(document.querySelector('span').innerText) + 1;
-document.querySelectorAll('p')[1].innerText = 'Price: ' + cprice;
+cprice += hgain * 100;
+document.querySelectorAll('span')[1].innerText = parseInt(document.querySelectorAll('span')[1].innerText) + 1;
+document.querySelectorAll('p')[2].innerText = 'Price: ' + hprice;
 }">Buy A Henagon Draw-er (don't buy yet)</button>
 <p>You own: <span>0</span></p>
 <p>Price: 100</p>
