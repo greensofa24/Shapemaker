@@ -7,13 +7,15 @@
 
 <script>
 var cprice = 1;
+var hprice = 100;
 var money = 1;
 var gain = 0;
-setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 1000);
+var hgain = 0;
+setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
 var circle;
 function update() {
 clearInterval(circle);
-circle = setInterval(function(){money += gain; update();}, 1000);
+circle = setInterval(function(){money += gain;}, 1000);
 }
 </script>
 
