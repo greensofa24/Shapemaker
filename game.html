@@ -34,7 +34,7 @@ circle = setInterval(function(){money += bkgain * (wgain + 1) * (grgain + 1)}, 1
 <h1>Shape Maker</h1>
 <h2>$1</h2>
 <button onclick="if(money >= bkprice) {
-gain += 1;
+bkgain += 1;
 money -= bkprice;
 update();
 bkprice += bkgain * 3;
