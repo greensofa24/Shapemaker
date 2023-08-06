@@ -2,46 +2,69 @@
 <html>
 <head>
 <title>Shape Maker</title>
+<style>
+body {
+font-family: 'Comic Sans MS', 'Comic Sans';
+font-size: 90%
+}
+button {
+font-family: inherit;
+font-size: 87.5%;
+}
+</style>
 </head>
 <body>
 
 <script>
-var cprice = 1;
-var hprice = 100;
+var bkprice = 1;
+var wprice = 100;
+var grprice = 10000;
 var money = 1;
-var gain = 0;
-var hgain = 0;
+var bkgain = 0;
+var wgain = 0;
+var grgain = 0;
 setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
 var circle;
 function update() {
 clearInterval(circle);
-circle = setInterval(function(){money += gain;}, 1000);
+circle = setInterval(function(){money += bkgain * (wgain + 1) * (grgain + 1)}, 1000);
 }
 </script>
 
 <h1>Shape Maker</h1>
 <h2>$1</h2>
-<button onclick="if(money >= cprice) {
+<button onclick="if(money >= bkprice) {
 gain += 1;
-money -= cprice;
+money -= bkprice;
 update();
-cprice += gain * 3;
+bkprice += bkgain * 3;
 document.querySelector('span').innerText = parseInt(document.querySelector('span').innerText) + 1;
-document.querySelectorAll('p')[1].innerText = 'Price: ' + cprice;
-}">Buy A Circle Draw-er</button>
+document.querySelectorAll('p')[1].innerText = 'Price: ' + bkprice;
+}">Buy A Black Circle Draw-er</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
 
-<button onclick="if(money >= hprice) {
-hgain += 1;
-money -= hprice;
+<button onclick="if(money >= wprice) {
+wgain += 1;
+money -= wprice;
 update();
-cprice += hgain * 100;
+wprice += wgain * 100;
 document.querySelectorAll('span')[1].innerText = parseInt(document.querySelectorAll('span')[1].innerText) + 1;
-document.querySelectorAll('p')[2].innerText = 'Price: ' + hprice;
-}">Buy A Henagon Draw-er (don't buy yet)</button>
+document.querySelectorAll('p')[3].innerText = 'Price: ' + wprice;
+}">Buy A White Circle Draw-er</button>
 <p>You own: <span>0</span></p>
 <p>Price: 100</p>
+
+<button onclick="if(money >= grprice) {
+grgain += 1;
+money -= grprice;
+update();
+grprice += grgain * 10000;
+document.querySelectorAll('span')[2].innerText = parseInt(document.querySelectorAll('span')[2].innerText) + 1;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + grprice;
+}">Buy A Grey Circle Draw-er</button>
+<p>You own: <span>0</span></p>
+<p>Price: 10000</p>
 
 <a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
 
