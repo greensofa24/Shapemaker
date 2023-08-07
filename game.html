@@ -19,28 +19,42 @@ font-size: 87.5%;
 var bkprice = 1;
 var wprice = 100;
 var grprice = 10000;
+var mbkprice = 1;
 var money = 1;
 var bkgain = 0;
 var wgain = 0;
 var grgain = 0;
+var mbkgain = 0;
+var bkc = 0;
+var wc = 0;
+var grc = 0;
+var bkm = 0;
 setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
-var circle;
+setInterval(function(){document.querySelector("span").innerText = bkc;}, 10);
+setInterval(function(){document.querySelectorAll("span")[1].innerText = wc;}, 10);
+setInterval(function(){document.querySelectorAll("span")[2].innerText = grc;}, 10);
+var ceffect;
 function update() {
-clearInterval(circle);
-circle = setInterval(function(){money += bkgain * (wgain + 1) * (grgain + 1)}, 1000);
+clearInterval(ceffect);
+ceffect = setInterval(function(){money += bkgain * (wgain + 1) * (grgain + 1)}, 1000);
+}
+function mpdate() {
+clearInterval(meffect);
+meffect = setInterval(function(){circle += mbkgain}, 1000);
 }
 </script>
 
 <h1>Shape Maker</h1>
 <h2>$1</h2>
+
 <button onclick="if(money >= bkprice) {
 bkgain += 1;
 money -= bkprice;
 update();
 bkprice += bkgain * 3;
-document.querySelector('span').innerText = parseInt(document.querySelector('span').innerText) + 1;
+bkc += 1;
 document.querySelectorAll('p')[1].innerText = 'Price: ' + bkprice;
-}">Buy A Black Circle Draw-er</button>
+}">Buy A Black Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
 
@@ -49,9 +63,9 @@ wgain += 1;
 money -= wprice;
 update();
 wprice += wgain * 100;
-document.querySelectorAll('span')[1].innerText = parseInt(document.querySelectorAll('span')[1].innerText) + 1;
+wc += 1;
 document.querySelectorAll('p')[3].innerText = 'Price: ' + wprice;
-}">Buy A White Circle Draw-er</button>
+}">Buy A White Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 100</p>
 
@@ -60,11 +74,22 @@ grgain += 1;
 money -= grprice;
 update();
 grprice += grgain * 10000;
-document.querySelectorAll('span')[2].innerText = parseInt(document.querySelectorAll('span')[2].innerText) + 1;
+grc += 1;
 document.querySelectorAll('p')[5].innerText = 'Price: ' + grprice;
-}">Buy A Grey Circle Draw-er</button>
+}">Buy A Grey Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 10000</p>
+
+<button onclick="if(bkc >= mbkprice) {
+mbkgain += 1;
+bkc -= mbkprice;
+mpdate();
+mbkprice *= (mbkgain + 1);
+document.querySelectorAll('span')[3].innerText = parseInt(document.querySelectorAll('span')[3].innerText) + 1;
+document.querySelectorAll('p')[7].innerText = 'Price: ' + mbkprice + ' BC';
+}">Buy A Black Monogon (don't buy yet)</button>
+<p>You own: <span>0</span></p>
+<p>Price: 1000 BC</p>
 
 <a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
 
