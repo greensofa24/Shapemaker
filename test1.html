@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shape Maker</title>
+<style>
+body {
+font-family: 'Comic Sans MS', 'Comic Sans';
+font-size: 90%
+}
+button {
+font-family: inherit;
+font-size: 87.5%;
+}
+</style>
+</head>
+<body>
+
+<script>
+//bk = black, c = circle, p = price
+var bkcp = 1;
+//w = white
+var wcp = 100;
+//gr = grey
+var grcp = 10000;
+//m = monogon
+var bkmp = 1000;
+var money = 1;
+var bkc = 1000;
+var wc = 0;
+var grc = 0;
+var bkm = 0;
+
+/* nested comments
+
+//w = wait (how much time there was left before ceffect if updated)
+var cw = 1000;
+//t = time (the function that makes w do something)
+var ct = setInterval(function(){cw -= 10;}, 10);
+setInterval(function(){cw = 1000}, 1000);
+
+*/
+
+setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
+setInterval(function(){document.querySelector("span").innerText = bkc;}, 10);
+setInterval(function(){document.querySelectorAll("span")[1].innerText = wc;}, 10);
+setInterval(function(){document.querySelectorAll("span")[2].innerText = grc;}, 10);
+setInterval(function(){document.querySelectorAll("span")[3].innerText = bkm;}, 10);
+var ceffect;
+function update() {
+clearInterval(ceffect);
+ceffect = setInterval(function(){money += bkc * (wc + 1) * (grc + 1)}, 1000);
+}
+var meffect;
+function mpdate() {
+clearInterval(meffect);
+meffect = setInterval(function(){bkc += bkm; ceffect();}, 1000);
+}
+</script>
+
+<h1>Shape Maker</h1>
+<h2>$1</h2>
+
+<button onclick="if(money >= bkcp) {
+bkc += 1;
+money -= bkcp;
+update();
+bkcp += bkc * 3;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + bkcp;
+}">Buy A Black Circle</button>
+<p>You own: <span>0</span></p>
+<p>Price: 1</p>
+
+<button onclick="if(money >= wcp) {
+wc += 1;
+money -= wcp;
+update();
+wcp += wc * 100;
+document.querySelectorAll('p')[3].innerText = 'Price: ' + wcp;
+}">Buy A White Circle</button>
+<p>You own: <span>0</span></p>
+<p>Price: 100</p>
+
+<button onclick="if(money >= grcp) {
+grc += 1;
+money -= grcp;
+update();
+grcp += grc * 10000;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + grcp;
+}">Buy A Grey Circle</button>
+<p>You own: <span>0</span></p>
+<p>Price: 10000</p>
+
+<button onclick="if(bkc >= bkmp) {
+bkm += 1;
+bkc -= bkmp;
+mpdate();
+bkmp *= (bkm + 1);
+document.querySelectorAll('p')[7].innerText = 'Price: ' + bkmp + ' BC';
+}">Buy A Black Monogon (don't buy yet)</button>
+<p>You own: <span>0</span></p>
+<p>Price: 1000 BC</p>
+
+<a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
+
+</body>
+</html>
