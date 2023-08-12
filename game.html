@@ -16,82 +16,92 @@ font-size: 87.5%;
 <body>
 
 <script>
-var bkprice = 1;
-var wprice = 100;
-var grprice = 10000;
-var mbkprice = 1;
 var money = 1;
-var bkgain = 0;
-var wgain = 0;
-var grgain = 0;
-var mbkgain = 0;
 var bkc = 0;
 var wc = 0;
 var grc = 0;
 var bkm = 0;
+var bkcp = 1;
+var wcp = 100;
+var grcp = 10000;
+var bkmp = 10000000000000000;
+var text = money + '/' + bkc + '/' + wc + '/' + grc + '/' + bkm + '/' + bkcp + '/' + wcp + '/' + grcp + '/' + bkmp;
 setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
 setInterval(function(){document.querySelector("span").innerText = bkc;}, 10);
 setInterval(function(){document.querySelectorAll("span")[1].innerText = wc;}, 10);
 setInterval(function(){document.querySelectorAll("span")[2].innerText = grc;}, 10);
 var ceffect;
+var meffect;
 function update() {
 clearInterval(ceffect);
-ceffect = setInterval(function(){money += bkgain * (wgain + 1) * (grgain + 1)}, 1000);
+ceffect = setInterval(function(){money += bkc * (wc + 1) * (grc + 1)}, 1000);
 }
 function mpdate() {
 clearInterval(meffect);
-meffect = setInterval(function(){circle += mbkgain}, 1000);
+meffect = setInterval(function(){circle += bkm}, 1000);
 }
 </script>
 
 <h1>Shape Maker</h1>
 <h2>$1</h2>
 
-<button onclick="if(money >= bkprice) {
-bkgain += 1;
-money -= bkprice;
-update();
-bkprice += bkgain * 3;
+<button onclick="if(money >= bkcp) {
 bkc += 1;
-document.querySelectorAll('p')[1].innerText = 'Price: ' + bkprice;
+money -= bkcp;
+update();
+bkcp += bkc * 3;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + bkcp;
 }">Buy A Black Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
 
-<button onclick="if(money >= wprice) {
-wgain += 1;
-money -= wprice;
-update();
-wprice += wgain * 100;
+<button onclick="if(money >= wcp) {
 wc += 1;
-document.querySelectorAll('p')[3].innerText = 'Price: ' + wprice;
+money -= wcp;
+update();
+wcp += wc * 100;
+document.querySelectorAll('p')[3].innerText = 'Price: ' + wcp;
 }">Buy A White Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 100</p>
 
-<button onclick="if(money >= grprice) {
-grgain += 1;
-money -= grprice;
-update();
-grprice += grgain * 10000;
+<button onclick="if(money >= grcp) {
 grc += 1;
-document.querySelectorAll('p')[5].innerText = 'Price: ' + grprice;
+money -= grcp;
+update();
+grcp += grc * 10000;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + grcp;
 }">Buy A Grey Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 10000</p>
 
-<button onclick="if(bkc >= mbkprice) {
-mbkgain += 1;
-bkc -= mbkprice;
+<button onclick="if(bkc >= bkmp) {
+bkm += 1;
+bkc -= bkmp;
 mpdate();
-mbkprice *= (mbkgain + 1);
+bkmp *= (bkm + 1);
 document.querySelectorAll('span')[3].innerText = parseInt(document.querySelectorAll('span')[3].innerText) + 1;
-document.querySelectorAll('p')[7].innerText = 'Price: ' + mbkprice + ' BC';
+document.querySelectorAll('p')[7].innerText = 'Price: ' + bkmp + ' BC';
 }">Buy A Black Monogon (don't buy yet)</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1000 BC</p>
 
 <a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
+
+<br><br>
+<button onclick="navigator.clipboard.writeText(text);">export</button>
+<br>
+<input>
+<button onclick="var value = document.querySelector('input').value.split('/');
+money = parseInt(value[0]);
+bkc = parseInt(value[1]);
+wc = parseInt(value[2]);
+grc = parseInt(value[3]);
+bkm = parseInt(value[4]);
+bkcp = 3 * bkc * (bkc - 1) / 2 + 1;
+
+update();
+mpdate();">import</button>
 
 </body>
 </html>
