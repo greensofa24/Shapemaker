@@ -25,11 +25,11 @@ var bkcp = 1;
 var wcp = 100;
 var grcp = 10000;
 var bkmp = 10000000000000000;
-var text = money + '/' + bkc + '/' + wc + '/' + grc + '/' + bkm + '/' + bkcp + '/' + wcp + '/' + grcp + '/' + bkmp;
-setInterval(function(){document.querySelector("h2").innerText = "$" + money;}, 10);
-setInterval(function(){document.querySelector("span").innerText = bkc;}, 10);
-setInterval(function(){document.querySelectorAll("span")[1].innerText = wc;}, 10);
-setInterval(function(){document.querySelectorAll("span")[2].innerText = grc;}, 10);
+setInterval(function(){document.querySelector("h2").innerText = "$" + f(money);}, 10);
+setInterval(function(){document.querySelector("span").innerText = f(bkc);}, 10);
+setInterval(function(){document.querySelectorAll("span")[1].innerText = f(wc);}, 10);
+setInterval(function(){document.querySelectorAll("span")[2].innerText = f(grc);}, 10);
+setInterval(function(){document.querySelectorAll("span")[3].innerText = f(bkm);}, 10);
 var ceffect;
 var meffect;
 function update() {
@@ -40,6 +40,28 @@ function mpdate() {
 clearInterval(meffect);
 meffect = setInterval(function(){circle += bkm}, 1000);
 }
+function rd(n) {
+var s = String(n);
+if (s.indexOf(".") == -1) {
+s += ".";
+}
+s += "00";
+return parseFloat(s.substring(0, s.indexOf(".") + 3));
+}
+function f(n) {
+if (n < 1e3) return n;
+if (n >= 1e3 && n < 1e6) return rd(n / 1e3) + "K";
+if (n >= 1e6 && n < 1e9) return rd(n / 1e6) + "M";
+if (n >= 1e9 && n < 1e12) return rd(n / 1e9) + "B";
+if (n >= 1e12 && n < 1e15) return rd(n / 1e12) + "T";
+if (n >= 1e15 && n < 1e18) return rd(n / 1e15) + "Qa";
+if (n >= 1e18 && n < 1e21) return rd(n / 1e18) + "Qu";
+if (n >= 1e21 && n < 1e24) return rd(n / 1e21) + "Sx";
+if (n >= 1e24 && n < 1e27) return rd(n / 1e24) + "Sp";
+if (n >= 1e27 && n < 1e30) return rd(n / 1e27) + "O";
+if (n >= 1e30 && n < 1e33) return rd(n / 1e30) + "N";
+if (n >= 1e33 && n < 1e36) return rd(n / 1e33) + "D";
+};
 </script>
 
 <h1>Shape Maker</h1>
@@ -84,24 +106,31 @@ document.querySelectorAll('span')[3].innerText = parseInt(document.querySelector
 document.querySelectorAll('p')[7].innerText = 'Price: ' + bkmp + ' BC';
 }">Buy A Black Monogon (don't buy yet)</button>
 <p>You own: <span>0</span></p>
-<p>Price: 1000 BC</p>
+<p>Price: 10000000000000000 BC</p>
 
 <a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
 
 <br><br>
-<button onclick="navigator.clipboard.writeText(text);">export</button>
-<br>
+<button onclick="var text = money + '/' + bkc + '/' + wc + '/' + grc + '/' + bkm;
+document.querySelector('input').value = btoa(btoa(text));">export</button>
 <input>
-<button onclick="var value = document.querySelector('input').value.split('/');
+<br>
+<button onclick="var value = atob(atob(document.querySelectorAll('input')[1].value)).split('/');
 money = parseInt(value[0]);
 bkc = parseInt(value[1]);
 wc = parseInt(value[2]);
 grc = parseInt(value[3]);
 bkm = parseInt(value[4]);
-bkcp = 3 * bkc * (bkc - 1) / 2 + 1;
-wcp = bkc * (bkc + 1) / 2 + 1;
+bkcp = 3 * bkc * (bkc + 1) / 2 + 1;
+wcp = 100 * (wc * (wc + 1) / 2 + 1);
+grcp = 10000 * (grc * (grc + 1) / 2 + 1);
+document.querySelectorAll('p')[1].innerText = 'Price: ' + bkcp;
+document.querySelectorAll('p')[3].innerText = 'Price: ' + wcp;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + grcp;
+document.querySelectorAll('p')[7].innerText = 'Price: ' + bkmp + ' BC';
 update();
 mpdate();">import</button>
+<input>
 
 </body>
 </html>
