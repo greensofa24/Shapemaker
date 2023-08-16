@@ -24,7 +24,7 @@ var bkm = 0;
 var bkcp = 1;
 var wcp = 100;
 var grcp = 10000;
-var bkmp = 10000000000000000;
+var bkmp = 1000;
 setInterval(function(){document.querySelector("h2").innerText = "$" + f(money);}, 10);
 setInterval(function(){document.querySelector("span").innerText = f(bkc);}, 10);
 setInterval(function(){document.querySelectorAll("span")[1].innerText = f(wc);}, 10);
@@ -38,7 +38,7 @@ ceffect = setInterval(function(){money += bkc * (wc + 1) * (grc + 1)}, 1000);
 }
 function mpdate() {
 clearInterval(meffect);
-meffect = setInterval(function(){circle += bkm}, 1000);
+meffect = setInterval(function(){bkc += bkm}, 1000);
 }
 function rd(n) {
 var s = String(n);
@@ -49,7 +49,6 @@ s += "00";
 return parseFloat(s.substring(0, s.indexOf(".") + 3));
 }
 function f(n) {
-if (n < 1e3) return n;
 if (n >= 1e3 && n < 1e6) return rd(n / 1e3) + "K";
 if (n >= 1e6 && n < 1e9) return rd(n / 1e6) + "M";
 if (n >= 1e9 && n < 1e12) return rd(n / 1e9) + "B";
@@ -61,6 +60,7 @@ if (n >= 1e24 && n < 1e27) return rd(n / 1e24) + "Sp";
 if (n >= 1e27 && n < 1e30) return rd(n / 1e27) + "O";
 if (n >= 1e30 && n < 1e33) return rd(n / 1e30) + "N";
 if (n >= 1e33 && n < 1e36) return rd(n / 1e33) + "D";
+return n;
 };
 </script>
 
@@ -72,7 +72,7 @@ bkc += 1;
 money -= bkcp;
 update();
 bkcp += bkc * 3;
-document.querySelectorAll('p')[1].innerText = 'Price: ' + bkcp;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + f(bkcp);
 }">Buy A Black Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
@@ -82,7 +82,7 @@ wc += 1;
 money -= wcp;
 update();
 wcp += wc * 100;
-document.querySelectorAll('p')[3].innerText = 'Price: ' + wcp;
+document.querySelectorAll('p')[3].innerText = 'Price: ' + f(wcp);
 }">Buy A White Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 100</p>
@@ -92,10 +92,10 @@ grc += 1;
 money -= grcp;
 update();
 grcp += grc * 10000;
-document.querySelectorAll('p')[5].innerText = 'Price: ' + grcp;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + f(grcp);
 }">Buy A Grey Circle</button>
 <p>You own: <span>0</span></p>
-<p>Price: 10000</p>
+<p>Price: 10K</p>
 
 <button onclick="if(bkc >= bkmp) {
 bkm += 1;
@@ -103,10 +103,10 @@ bkc -= bkmp;
 mpdate();
 bkmp *= (bkm + 1);
 document.querySelectorAll('span')[3].innerText = parseInt(document.querySelectorAll('span')[3].innerText) + 1;
-document.querySelectorAll('p')[7].innerText = 'Price: ' + bkmp + ' BC';
+document.querySelectorAll('p')[7].innerText = 'Price: ' + f(bkmp) + ' BC';
 }">Buy A Black Monogon (don't buy yet)</button>
 <p>You own: <span>0</span></p>
-<p>Price: 10000000000000000 BC</p>
+<p>Price: 1K BC</p>
 
 <a href="https://docs.google.com/spreadsheets/d/13n6phTGnN0P7MrGHoljLVuru4HtrdhIeu9JOCr1VQIc/edit#gid=0">Rules for Shape Names</a>
 
