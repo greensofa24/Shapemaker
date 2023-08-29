@@ -151,12 +151,13 @@ bkc = parseInt(value[1]);
 wc = parseInt(value[2]);
 grc = parseInt(value[3]);
 bkm = parseInt(value[4]);
+wm = parseInt(value[6]);
+grm = parseInt(value[7]);
 money += (Math.floor(Date.now() / 1000) - parseInt(value[5])) * bkc * (bkm * bkc + (bkm + 1)) * (wc + 1) * (grc + 1) / (bkm + 1);
 bkc += (Math.floor(Date.now()/1000) - parseInt(value[5])) * bkm;
 bkcp = 3 * bkc * (bkc + 1) / 2 + 1;
 wcp = 100 * (wc * (wc + 1) / 2 + 1);
 grcp = 10000 * (grc * (grc + 1) / 2 + 1);
-
 document.querySelectorAll('p')[1].innerText = 'Price: ' + f(bkcp);
 document.querySelectorAll('p')[3].innerText = 'Price: ' + f(wcp);
 document.querySelectorAll('p')[5].innerText = 'Price: ' + f(grcp);
