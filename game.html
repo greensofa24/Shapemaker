@@ -23,19 +23,22 @@ var grc = 0;
 var bkm = 0;
 var wm = 0;
 var grm = 0;
+var rc = 0;
 var bkcp = 1;
 var wcp = 100;
 var grcp = 10000;
 var bkmp = 1000;
 var wmp = 1000;
 var grmp = 1000;
+var rcp = 1000000000;
 setInterval(function(){document.querySelector("h2").innerText = "$" + f(money)}, 10);
 setInterval(function(){document.querySelector("span").innerText = f(bkc)}, 10);
 setInterval(function(){document.querySelectorAll("span")[1].innerText = f(wc)}, 10);
 setInterval(function(){document.querySelectorAll("span")[2].innerText = f(grc)}, 10);
-setInterval(function(){document.querySelectorAll("span")[3].innerText = f(bkm)}, 10);
-setInterval(function(){document.querySelectorAll("span")[4].innerText = f(wm)}, 10);
-setInterval(function(){document.querySelectorAll("span")[5].innerText = f(grm)}, 10);
+setInterval(function(){document.querySelectorAll("span")[3].innerText = f(rc)}, 10);
+setInterval(function(){document.querySelectorAll("span")[4].innerText = f(bkm)}, 10);
+setInterval(function(){document.querySelectorAll("span")[5].innerText = f(wm)}, 10);
+setInterval(function(){document.querySelectorAll("span")[6].innerText = f(grm)}, 10);
 var ceffect;
 var meffect;
 function update() {
@@ -102,6 +105,16 @@ document.querySelectorAll('p')[5].innerText = 'Price: ' + f(grcp);
 }">Buy A Grey Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 10K</p>
+
+<button onclick="if(money >= rcp) {
+rc += 1;
+money -= rcp;
+update();
+rcp += rc * 10000;
+document.querySelectorAll('p')[5].innerText = 'Price: ' + f(rcp);
+}">Buy A Red Circle</button>
+<p>You own: <span>0</span></p>
+<p>Price: 1B</p>
 
 <button onclick="if(bkc >= bkmp) {
 bkm += 1;
