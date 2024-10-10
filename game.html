@@ -31,6 +31,7 @@ var bkmp = 1000;
 var wmp = 1000;
 var grmp = 1000;
 var rcp = 1000000000;
+var max = false;
 setInterval(function(){document.querySelector("h2").innerText = "$" + f(money)}, 10);
 setInterval(function(){document.querySelector("span").innerText = f(bkc)}, 10);
 setInterval(function(){document.querySelectorAll("span")[1].innerText = f(wc)}, 10);
@@ -43,7 +44,7 @@ var ceffect;
 var meffect;
 function update() {
 clearInterval(ceffect);
-ceffect = setInterval(function(){money += bkc * (wc + 1) * (grc + 1)}, 1000);
+ceffect = setInterval(function(){money += (bkc * (wc + 1) * (grc + 1)) ** (rc + 1)}, 1000);
 }
 function mpdate() {
 clearInterval(meffect);
@@ -71,17 +72,42 @@ if (n >= 1e30 && n < 1e33) return rd(n / 1e30) + "N";
 if (n >= 1e33 && n < 1e36) return rd(n / 1e33) + "D";
 return n;
 };
+function rdc(price, multiplier) {
+let n = Math.floor((Math.sqrt(multiplier ** 2 - 4 * multiplier * ((price - money) * 2)) - multiplier) / multiplier / 2);
+return [(n * (n + 1)) / 2 * multiplier + price, n + 1];
+}
 </script>
 
 <h1>Shape Maker</h1>
 <h2>$1</h2>
 
-<button onclick="if(money >= bkcp) {
+<button onclick="if (max) {
+max = false;
+this.innerText = 'Max';
+} else {
+max = true;
+this.innerText = 'Single';
+}">Max</button>
+<br>
+<br>
+
+<button onclick="if (max) {
+if(money >= rdc(bkcp, 3)[0] + 3 * rdc(bkcp, 3)[1] - 3) {
+bkc += rdc(bkcp, 3)[1];
+bkcp = rdc(bkcp, 3)[0] + 3 * rdc(bkcp, 3)[1] - 3;
+money -= rdc(bkcp, 3)[0] + 3 * rdc(bkcp, 3)[1] - 3;
+update();
+bkcp += bkc * 3;
+document.querySelectorAll('p')[1].innerText = 'Price: ' + f(bkcp);
+}
+} else {
+if(money >= bkcp) {
 bkc += 1;
 money -= bkcp;
 update();
 bkcp += bkc * 3;
 document.querySelectorAll('p')[1].innerText = 'Price: ' + f(bkcp);
+}
 }">Buy A Black Circle</button>
 <p>You own: <span>0</span></p>
 <p>Price: 1</p>
@@ -110,7 +136,7 @@ document.querySelectorAll('p')[5].innerText = 'Price: ' + f(grcp);
 rc += 1;
 money -= rcp;
 update();
-rcp += rc * 10000;
+rcp **= 2;
 document.querySelectorAll('p')[5].innerText = 'Price: ' + f(rcp);
 }">Buy A Red Circle</button>
 <p>You own: <span>0</span></p>
